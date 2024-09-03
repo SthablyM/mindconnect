@@ -6,11 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MindConnect</title>
 
-  
+  <!-- for your style to be applied first -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+
 </head>
 
 <body>
-  <h1>Log in Mind Connect</h1>
+  {% include 'navigation.html' %}
+
+  <h1>Sign In</h1>
+  <form action="signin" method="POST">
+    <p>{{ message }}</p>
+    <div>
+      <label>Email:</label> <br/>
+      <input type="text" name="email" required/>
+    </div>  
+    
+    <div>
+      <label>Password:</label> <br/>
+      <input type="password" name="password" required/>
+    </div> 
+    <p><input type="submit" value="Sign In" /></p>
+    <p><a href="forgot-password">Forgot Password</a> | <a href="signup">Sign up</a></p>
+  </form>
+
+
+  <!-- for faster page loading, connect your js last -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='jquery-3.7.1.min.js') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.js') }}">  
 </body>
 
-</html>
+</html> 

@@ -6,11 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MindConnect</title>
 
+  <!-- for your style to be applied first -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
   
 </head>
 
 <body>
-  <h1>Feeds Page</h1>
+  {% include 'navigation.html' %}
+    <div class="header">
+        <h1>Feed Page</h1>
+    </div>
+
+    <div class="feed">
+        <img 
+          src="image.jpg" 
+          alt=""
+          title=""
+          width="400"
+          height="341"/>
+        <div class="title">MindConnect</div>
+        <div class="description">
+            Welcome to MindConnect! Stay updated with the latest news and updates on mental health.
+        </div>
+  <!-- for faster page loading, connect your js last -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='jquery-3.7.1.min.js') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.js') }}">  
 </body>
 
 </html>

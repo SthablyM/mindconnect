@@ -6,11 +6,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MindConnect</title>
 
-  
+  <!-- for your style to be applied first -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
 </head>
 
 <body>
-  <h1>Sign up for Mind Connect</h1>
+  {% include 'navigation.html' %}
+  <h1>Sign up</h1>
+  <form action="signup" method="POST">
+    <div>
+      <label>Firs Name:</label> <br/>
+      <input type="text" name="first_name" />
+    </div>
+    <div>
+      <label>Last Name:</label> <br/>
+      <input type="text" name="last_name" />
+    </div>
+    <div>
+      <label>Phone Number:</label>  <br/>
+      <input type="text" name="phone_number" />
+    </div>
+    <div>
+      <label>Email:</label> <br/>
+      <input type="text" name="email" />
+    </div>      
+    <div>
+      <label>Password:</label> <br/>
+      <input type="password" name="password" />
+    </div>     
+    <div>
+      <label>Confirm Password:</label> <br/>
+      <input type="password" name="confirm_password" />
+    </div>     
+    <p><input type="submit" id="signup" value="Sign Up" /></p>
+    <p><a href="signin">Sign in</a></p>
+  </form>
+
+
+
+  <!-- for faster page loading, connect your js last -->
+  <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}" />
+  <script src="{{ url_for('static', filename='app.js') }}" />
+
+  <script>
+    $(function(){
+      alert('hello world');
+      $("#signup").on("click", function(e){
+        alert('hello');
+        e.preventDefault();
+      });
+
+
+
+    });
+  </script>
+
 </body>
 
-</html>
+</html> 

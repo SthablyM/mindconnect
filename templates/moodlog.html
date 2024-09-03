@@ -6,11 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MindConnect</title>
 
+  <!-- for your style to be applied first -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
   
 </head>
 
 <body>
 
-</body>
 
+
+  <!-- for faster page loading, connect your js last -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='jquery-3.7.1.min.js') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.js') }}">  
+</body>
 </html>
