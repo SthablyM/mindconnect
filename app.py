@@ -1,6 +1,6 @@
 from datetime import timezone
-from flask import Flask, redirect, render_template, request, session
-from db import User, db
+from flask import Flask, redirect, render_template, request, session, url_for
+from db import Post, User, db
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost:3306/mindconnect"
@@ -99,8 +99,23 @@ def restPassword():
 
 @app.route('/feeds', methods=["POST", "GET"])
 def feeds():
+    image_url= "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=600"
+    return render_template("feeds.html", image_url=image_url)
     if (request.method == "GET"):
-        return render_template("feeds.html")  
-             
+        return render_template("feeds.html") 
+likes_count= 0
+comments = []
+@app.route('/like', methods=["POST", "GET"])
+def like_post():
+    global likes_count
+    likes_count += 1
+    return redirect(url_for('feeds'))
+@app.route('/add_comment', methods=['POST'])
+def add_comment():
+    global comments
+    comment = request.form['comment']
+    comments.append(comment)
+    return redirect(url_for('feeds'))
+
 
 app.run(debug=True)
