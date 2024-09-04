@@ -103,7 +103,7 @@ def feeds():
     return render_template("feeds.html", image_url=image_url)
     if (request.method == "GET"):
         return render_template("feeds.html") 
-likes_count= 0
+likes_count = 0
 comments = []
 @app.route('/like', methods=["POST", "GET"])
 def like_post():

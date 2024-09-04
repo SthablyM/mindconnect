@@ -6,15 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MindConnect</title>
 
+
   <!-- for your style to be applied first -->
   <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
 
 </head>
 
 <body>
+  <style>
+  body {
+        background-color: #00e1ff; 
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: black;
+    }
+    .feeds img {
+        max-width: 100%;
+        height: auto;
+    }
+    p a {
+        color: black; 
+        text-decoration: none;
+    }
+</style>
   {% include 'navigation.html' %}
 
   <h1>Welcome to mind connect</h1>
+
+  <div class="feeds">
+    <img
+    src="https://images.pexels.com/photos/1433052/pexels-photo-1433052.jpeg"
+    alt="Mind Connect Image"
+    width="600"
+    height="320">
+  </div>
   <p><a href="signin">Sign In </a> | <a href="signup">Sign Up </a></p>
 
 

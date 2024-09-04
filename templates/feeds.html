@@ -11,13 +11,29 @@
   
 </head>
 
-<body>
+<body><style>
+  body {
+        background-color: #00e1ff; 
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: black;
+    }
+    .feeds img {
+        max-width: 100%;
+        height: auto;
+    }
+    p a {
+        color: black; 
+        text-decoration: none;
+    }
+</style>
+
   {% include 'navigation.html' %}
     <div class="header">
         <h1>Feed Page</h1>
     </div>
 
-    <div class="feed">
+    <div class="feeds">
         <img 
           src= "{{ image_url }}" alt="Image from external source">
         <div class="title">MindConnect</div>
