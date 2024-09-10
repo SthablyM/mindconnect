@@ -1,6 +1,7 @@
 from datetime import timezone
+from pprint import pp
 from flask import Flask, redirect, render_template, request, session, url_for
-from db import Post, User, db
+from db import Post, PostComment, PostLike, User, db
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost:3306/mindconnect"
@@ -9,7 +10,7 @@ app.secret_key = 'hgaefdhfaevevyatedv'
 db.init_app(app)
 
 with app.app_context():
-    db.create_all()
+    db.create_all() 
 
 @app.route('/', methods=["GET"])
 def home():
@@ -24,7 +25,7 @@ def signin():
         password = request.form["password"]
         existing_user = User.query.filter_by(email=email, password = password).first()
         if (existing_user is not None):
-            # session["logged_in"] = "success"
+            session["logged_user_id"] = existing_user.id
             return redirect('/feeds')
         else: 
             return render_template("login.html", message = "Invalid login details") 
@@ -94,28 +95,76 @@ def restPassword():
                 existing_user.password = password
                 db.session.add(existing_user)
                 db.session.commit()
-            return render_template("login.html")     
+            return render_template("login.html")
+   
+@app.route('/create_post', methods=['GET', 'POST'])
+def create_post():
+    post = {"id": 1, "content": "Sample post"}
+    return render_template('create_post.html', post=post)
 
 
+
+@app.route('/success', methods = ['POST'])   
+def success():   
+    if request.method == 'POST':   
+        f = request.files['file'] 
+        f.save(f.filename)
+        return render_template('create_post.html', name = f.filename)
+
+        
+         
 @app.route('/feeds', methods=["POST", "GET"])
 def feeds():
-    image_url= "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=600"
-    return render_template("feeds.html", image_url=image_url)
+    image_url= "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=250"    
     if (request.method == "GET"):
-        return render_template("feeds.html") 
-likes_count = 0
-comments = []
-@app.route('/like', methods=["POST", "GET"])
+        posts = Post.query.all()
+        for post in posts:
+            likes = PostLike.query.filter_by(post_id = post.id)
+        return render_template("feeds.html", posts=posts)
+    
+
+@app.route('/like', methods=["POST"])
 def like_post():
-    global likes_count
-    likes_count += 1
+    post_id = request.form['post_id']
+    new_like = PostLike(
+        user_id = session["logged_user_id"],
+        post_id = post_id,
+    )
+    db.session.add(new_like)
+    db.session.commit()
     return redirect(url_for('feeds'))
+
+
 @app.route('/add_comment', methods=['POST'])
 def add_comment():
-    global comments
     comment = request.form['comment']
-    comments.append(comment)
-    return redirect(url_for('feeds'))
-
+    post_id = request.form['post_id']
+    new_comment = PostComment(
+        user_id = session["logged_user_id"],
+        post_id = post_id,
+        comment = comment,
+    )
+    db.session.add(new_comment)
+    db.session.commit()
+    if (new_comment.id > 0):
+        return redirect("/feeds")    
+    
 
 app.run(debug=True)
+from flask import Flask, request, render_template 
+  
+app = Flask(__name__) 
+  
+  
+@app.route('/', methods=['GET', 'POST']) 
+def index(): 
+    if request.method == 'POST': 
+        # Retrieve the text from the textarea 
+        text = request.form.get('textarea') 
+  
+        # Print the text in terminal for verification 
+        print(text) 
+  
+    return render_template('home.html') 
+  
+  

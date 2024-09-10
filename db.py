@@ -13,7 +13,9 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(500), unique=False, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, default=datetime.now())  
+    updated_at = db.Column(db.DateTime, default=datetime.now())
+
+    # posts = db.relationship('Post', backref='posts')  
 
 class Post(db.Model):
     __tablename__ = "posts"
@@ -24,6 +26,10 @@ class Post(db.Model):
     image_uri = db.Column(db.String(500))
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())  
+    
+    post_comments = db.relationship('PostComment', backref='posts')
+    post_likes = db.relationship("PostLike", backref="posts")     
+
 
     # comments = db.relationship("PostComment", back_populates="post", lazy="dynamic")
     # likes = db.relationship("PostLike", back_populates="post", lazy="dynamic")     
@@ -38,7 +44,9 @@ class PostComment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now()) 
 
-class PostLikes(db.Model):
+    post = db.relationship("Post", back_populates="post_comments")
+
+class PostLike(db.Model):
     __tablename__ = "post_likes"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -46,6 +54,8 @@ class PostLikes(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())  
+
+    post = db.relationship("Post", back_populates="post_likes")
 
 class MoodLog(db.Model):
     __tablename__ = "moods_log"

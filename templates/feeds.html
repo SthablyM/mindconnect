@@ -13,14 +13,40 @@
 
 <body><style>
   body {
-        background-color: #00e1ff; 
+        background-color: #fff; 
         font-family: Arial, sans-serif;
-        text-align: center;
         color: black;
     }
     .feeds img {
         max-width: 100%;
-        height: auto;
+        height: 250px;
+        text-align: left;
+    }
+    .feeds {
+      border: 0px solid black;
+      width: 400px;
+      background-color: #cecece;
+      margin-bottom: 10px;
+    }
+    .feed-text, .like-button {
+      font-size: 12px;
+      text-align: left;
+      padding: 5px;
+    }
+    .comment-section{
+      padding: 5px;
+    }
+    .comment-text {
+      padding: 10px;
+      font-size: 12px;
+      margin: 0px 0px 10px 0px;
+      border: 0px solid #000;
+    }
+    .comment-box button {
+      position:absolute;
+    }    
+    p{
+      margin: 0px;
     }
     p a {
         color: black; 
@@ -29,34 +55,52 @@
 </style>
 
   {% include 'navigation.html' %}
-    <div class="header">
-        <h1>Feed Page</h1>
-    </div>
+  <div class="header">
+      <h3>Feeds Page</h3>
+  </div> <!-- This is a simple button -->
+  <form action="/create_post" method="POST">
+    <button><a< href="create_post" style="margin-left: 316px;">Create Post</button>
+    </a> 
+ </form>
+  <div></div>
 
-    <div class="feeds">
-        <img 
-          src= "{{ image_url }}" alt="Image from external source">
-        <div class="title">MindConnect</div>
-        <div class="description">
-            Welcome to MindConnect! Stay updated with the latest news and updates on mental health
-        </div>
-        <!-- Like Button -->
-        <form action="{{ url_for('like_post') }}" method="POST">
-          <button type="submit">Like</button>
-          <p>Likes: {{ likes }}</p>
-        </form>
-        <!-- Comment Form -->
-         <form action="{{ url_for('add_comment') }}" method="POST">
-          <textarea name="comment" placeholder="Write a comment..." required></textarea>
+  {% for post in posts %}
+  <div class="feeds">
+    <img src= "{{ post.image_uri }}" alt="Image from external source">
+    <p class="description feed-text">
+      {{ post.post }}
+    </p>
+    <!-- Like Button -->
+    <div class="like-button">
+      <form action="{{ url_for('like_post') }}" method="POST">
+        <input type="text" value="{{post.id}}" name="post_id" hidden>
+        <button type="submit">{{ post.post_likes |length }} Like</button>
+      </form>
+    </div>
+    <!-- Comment Form -->
+    <div class="comment-section">
+      <form action="{{ url_for('add_comment') }}" method="POST">
+        <div class="comment-box">
+          <textarea name="comment" rows="1" cols="40" placeholder="Write a comment..." required></textarea>
+          <input type="text" value="{{post.id}}" name="post_id" hidden>
           <button type="submit">Comment</button>
-        </form>
-        <!-- Display Comments -->
-         <h2>Comments:</h2>
-         <ul>
-          {% for comment in comments %}
-          <li>{{ comment }}</li>
-          {% endfor %}
-        </ul>
+        </div>
+      </form>
+
+      <div class="post-comments">
+        {% for comment in post.post_comments %}
+        <div class="comment-text">
+          <small> <i>04/09/2024</i></small>
+          <p style="margin-top: 3px;">
+            {{ comment.comment }}          
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
 
   <!-- for faster page loading, connect your js last -->
   <link rel="stylesheet" href="{{ url_for('static', filename='jquery-3.7.1.min.j') }}">

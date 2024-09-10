@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MindConnect</title>
+
+  <!-- for your style to be applied first -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+  <style>
+     body {
+          background-color: #00e1ff; 
+          font-family: Arial, sans-serif;
+          text-align: center;
+          color: black;
+      }
+      .feeds img {
+          max-width: 100%;
+          height: auto;
+      }
+      p a {
+          color: black; 
+          text-decoration: none;
+      }
+
+  </style>
+</body>
+
+<!-- Include navigation -->
+{% include 'navigation.html' %}
+
+<h1>Create Post</h1>
+<div class="comment-section">
+  <form action="{{ url_for('create_post') }}" method="POST">
+    <div class="creatPost-box">
+      <textarea name="CreatPost" rows="1" cols="40" placeholder="Create a post..." required></textarea>
+      <input type="text" value="{{ post.id if post else '' }}" name="post_id" hidden>
+      <button type="submit">Create Post</button>
+    </div>
+  </form>
+</div>
+<div> <form action = "/success" method = "post" enctype="multipart/form-data">   
+  <input type="file" name="file" />   
+  <input type = "submit" value="Upload">   
+</form>   
+
+</div>
+
+
+  <!-- for faster page loading, connect your js last -->
+  <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}" />
+  <script src="{{ url_for('static', filename='app.js') }}" />
+
+  <script>
+    $(function(){
+      alert('hello world');
+      $("#createpost").on("click", function(e){
+        alert('hello');
+        e.preventDefault();
+      });
+
+
+
+    });
+  </script>
+
+</body>
+
+</html> 
