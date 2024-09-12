@@ -15,9 +15,6 @@ with app.app_context():
 @app.route('/', methods=["GET"])
 def home():
     return render_template("home.html")
-@app.route('/')
-def landing_page():
-    return render_template('landing_page.html')
 
 @app.route('/signin', methods=["POST", "GET"])
 def signin():
