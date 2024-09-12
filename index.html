@@ -9,23 +9,47 @@
   <!-- for your style to be applied first -->
   <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
   <style>
-    body {
-        background-color: #00e1ff; 
-        font-family: Arial, sans-serif;
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+    
+      li {
+        float: left;
+      }
+    
+      li a {
+        display: block;
+        color: white;
         text-align: center;
-        color: black;
-    }
-    .feeds img {
-        max-width: 100%;
-        height: auto;
-    }
-    p a {
-        color: black; 
+        padding: 14px 16px;
         text-decoration: none;
-    }
-    section {
-      height: 400px;
-    }
+      }
+    
+      /* Change the link color to #111 (black) on hover */
+      li a:hover {
+        background-color: #111;
+      }      
+      body {
+          background-color: #00e1ff; 
+          font-family: Arial, sans-serif;
+          text-align: center;
+          color: black;
+      }
+      .feeds img {
+          max-width: 100%;
+          height: auto;
+      }
+      p a {
+          color: black; 
+          text-decoration: none;
+      }
+      section {
+        height: 400px;
+      }
   </style>
 </head>
 
@@ -33,10 +57,11 @@
   <header>
     <ul>
         <li><a href="/"><b>MindConnect</b></a></li>
-        <!-- <li style="float:right"><a class="active" href="#about">About</a></li> -->
+        <li style="float:right"><a class="active" href="#three-key-features">Features</a></li>
+        <li style="float:right"><a class="active" href="#about-section">About</a></li>
     </ul>    
   </header>
-  <setion id="large-image-welcome">
+  <section id="large-image-welcome">
     <h1>Welcome to mind connect</h1>  
     <div class="feeds">
       <img
@@ -45,13 +70,13 @@
       width="600"
       height="320">
     </div>    
-  </setion>
-  <setion id="three-key-features">
+  </section>
+  <section id="three-key-features">
     
-  </setion>
-  <setion id="about-section">
+  </section>
+  <section id="about-section">
     
-  </setion>
+  </section>
   
   <!-- for faster page loading, connect your js last -->
   <link rel="stylesheet" href="{{ url_for('static', filename='jquery-3.7.1.min.js') }}">
