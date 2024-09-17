@@ -1,6 +1,6 @@
 from datetime import timezone
 from pprint import pp
-from flask import Flask, redirect, render_template, request, session, url_for
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 from sqlalchemy import make_url
 from db import Post, PostComment, PostLike, User, db
 
@@ -100,28 +100,25 @@ def restPassword():
    
 @app.route('/create_post', methods=['GET', 'POST'])
 def create_post():
-    post = {"user_id": 1, "content": "new_post", "image_uri":"image"}
     if request.method == 'POST':
-        new_post = request.form['CreatPost']
-        new_post = post(
-            user_id=session["logged_user_id"],
-            new_post=new_post,
-            image_uri=image,
+        post = request.form.get('CreatPost')
+        image_uri = request.form.get('image') 
+
+
+        if not post:
+            flash('Post content is required', 'error')
+            return redirect('create_post')
+        new_post = Post(
+            user_id=session.get("logged_user_id"),
+            post=post,
+            image_uri=image_uri
         )
+        
         db.session.add(new_post)
-        db.session.add(image)
         db.session.commit()
-        return redirect(url_for('feeds'))
-    return render_template('create_post.html', post=post)
-
-
-@app.route('/image', methods = ['POST'])   
-def image():   
-    if request.method == 'POST':   
-        f = request.files['file'] 
-        f.save(f.filename)
-        return render_template('create_post.html', name = f.filename)
-
+        db.session.add(image_uri)
+        return redirect('/feeds')
+    return render_template('create_post.html')
         
          
 @app.route('/feeds', methods=["POST", "GET"])
