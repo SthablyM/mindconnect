@@ -101,7 +101,7 @@ def restPassword():
 def create_post():
     post = {"user_id": 1, "content": "new_post"}
     if request.method == 'POST':
-        content = request.form['CreatePost']
+        content = request.form['CreatPost']
         new_post = Post(
             user_id=session["logged_user_id"],
             content=content,
