@@ -112,9 +112,8 @@ def create_post():
     return render_template('create_post.html', post=post)
 
 
-
-@app.route('/success', methods = ['POST'])   
-def success():   
+@app.route('/image', methods = ['POST'])   
+def image():   
     if request.method == 'POST':   
         f = request.files['file'] 
         f.save(f.filename)
