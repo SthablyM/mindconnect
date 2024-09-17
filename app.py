@@ -109,6 +109,7 @@ def create_post():
             image_uri=image,
         )
         db.session.add(new_post)
+        db.session.add(image)
         db.session.commit()
         return redirect(url_for('feeds'))
     return render_template('create_post.html', post=post)
