@@ -26,21 +26,22 @@
       }
 
   </style>
-</body>
-
-<!-- Include navigation -->
-{% include 'navigation.html' %}
-
-<h1>Create Post</h1>
-<div class="comment-section">
-  <form action="{{ url_for('create_post') }}" method="POST">
-    <div class="creatPost-box">
-      <textarea name="CreatPost" rows="1" cols="40" placeholder="Create a post..." required></textarea>
-      <input type="text" value="{{ post.id if post else '' }}" name="post_id" hidden>
-      <button type="submit">Create Post</button>
+  <body>
+    <!-- Include navigation -->
+     {% include 'navigation.html' %}
+     <h1>Create Post</h1>
+     <div class="comment-section">
+      <form action="{{ url_for('create_post') }}" method="POST">
+        <div class="creatPost-box">
+          <textarea name="CreatPost" rows="4" cols="40" placeholder="Create a post..." required></textarea>
+          <input type="text" value="{{ post.id if post else '' }}" name="post_id" hidden>
+          <button type="submit">Create Post</button>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
+
+
+  <!--apload picture-->
 <div> <form action = "/success" method="POST"> 
   <input type="file" name="file" />   
   <input type = "submit" value="submit">

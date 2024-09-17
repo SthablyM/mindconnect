@@ -99,7 +99,16 @@ def restPassword():
    
 @app.route('/create_post', methods=['GET', 'POST'])
 def create_post():
-    post = {"id": 1, "content": "Sample post"}
+    post = {"user_id": 1, "content": "new_post"}
+    if request.method == 'POST':
+        content = request.form['CreatePost']
+        new_post = Post(
+            user_id=session["logged_user_id"],
+            content=content,
+        )
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect(url_for('feeds'))
     return render_template('create_post.html', post=post)
 
 
@@ -166,5 +175,6 @@ def index():
         print(text) 
   
     return render_template('home.html') 
+  
   
   
