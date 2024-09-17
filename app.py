@@ -116,7 +116,6 @@ def create_post():
         
         db.session.add(new_post)
         db.session.commit()
-        db.session.add(image_uri)
         return redirect('/feeds')
     return render_template('create_post.html')
         

@@ -77,7 +77,9 @@
   <section id="three-key-features" class="content-section">
     <h1 style="text-align:center">Key Features</h1>
     <div class="row">
-      <div class="column">
+        <h2>welcome page</h2>
+        <p class="title">Welcome Page</p>
+        <p> A welcoming option that encourages new users to sign up and existing users to log in.</p>
         <div class="card">
           <img 
           src="./image/Screenshot 2024-09-12 191502 - Copy.png" 
@@ -93,9 +95,10 @@
     
       <div class="column">
         <h2>Feeds page</h2>
+        <div class="container">
         <p class="title">A Feeds page</p>
         <p>Our users can explore and engage with content about mental health, including how others are coping with their challenges. They can read articles, share experiences, and show support by liking</p>
-        <div class="container">
+        <div class="card">
           <img 
             src="./image/Screenshot 2024-09-12 191752 - Copy.png" 
             alt=" "
@@ -105,14 +108,15 @@
       </div>
     
       <div class="column">
+          <h2>Upload & Engage</h2>
+          <p class="title">Upload and Engage page</p>
+          <p> Space where users can actively share their thoughts, experiences, and resources by uploading content related to mentat health </p>
         <div class="card">
           <img src="./image/Screenshot 2024-09-12 191810.png" 
           alt="" 
           style="width:100%">
           <div class="container">
-            <h2>Upload & Engage</h2>
-            <p class="title">Upload and Engage page</p>
-            <p> Space where users can actively share their thoughts, experiences, and resources by uploading content related to mental health.</p>
+          
           </div>
         </div>
       </div>
@@ -180,6 +184,12 @@
     .button:hover {
       background-color: #555;
     }
+    @media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
   </style>
     
           
