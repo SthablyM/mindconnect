@@ -1,6 +1,7 @@
 from datetime import timezone
 from pprint import pp
 from flask import Flask, redirect, render_template, request, session, url_for
+from sqlalchemy import make_url
 from db import Post, PostComment, PostLike, User, db
 
 app = Flask(__name__)
@@ -99,12 +100,13 @@ def restPassword():
    
 @app.route('/create_post', methods=['GET', 'POST'])
 def create_post():
-    post = {"user_id": 1, "content": "new_post"}
+    post = {"user_id": 1, "content": "new_post", "image_uri":"image"}
     if request.method == 'POST':
-        content = request.form['CreatPost']
-        new_post = Post(
+        new_post = request.form['CreatPost']
+        new_post = post(
             user_id=session["logged_user_id"],
-            content=content,
+            new_post=new_post,
+            image_uri=image,
         )
         db.session.add(new_post)
         db.session.commit()
